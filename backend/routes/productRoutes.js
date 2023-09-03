@@ -200,7 +200,6 @@ productRouter.get(
       ...priceFilter,
       ...ratingFilter,
     });
-    console.log("products =", products);
     res.send({
       products,
       countProducts,
