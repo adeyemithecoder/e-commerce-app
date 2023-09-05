@@ -1,7 +1,7 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -124,4 +124,32 @@ main {
 }
 button.thumbnail {
   padding: 0;
+}
+.add {
+  color: white;
+  background-color: red;
+  border: none;
+  font-weight: bold;
+}
+.rem {
+  background-color: yellow;
+  color: black;
+  border: none;
+  font-weight: bold;
+}
+.cart-container {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+.count {
+  position: absolute;
+  top: 0;
+  left: 20px;
+}
+.cart-icon {
+  font-size: 60px;
+}
+.x {
+  margin: auto 0;
 }

@@ -1,31 +1,33 @@
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
-import { Link } from 'react-router-dom';
-import Rating from './Rating';
-import axios from 'axios';
-import { useContext } from 'react';
-import { Store } from '../Store';
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
+import { Link } from "react-router-dom";
+import Rating from "./Rating";
+import axios from "axios";
+import { useContext } from "react";
+import { Store } from "../Store";
 
 function Product(props) {
   const { product } = props;
-
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const {
     cart: { cartItems },
   } = state;
-
   const addToCartHandler = async (item) => {
     const existItem = cartItems.find((x) => x._id === product._id);
-    const quantity = existItem ? existItem.quantity + 1 : 1;
-    const { data } = await axios.get(`/api/products/${item._id}`);
-    if (data.countInStock < quantity) {
-      window.alert('Sorry. Product is out of stock');
-      return;
+    if (existItem?.quantity) {
+      ctxDispatch({ type: "CART_REMOVE_ITEM", payload: item });
+    } else {
+      const quantity = existItem ? existItem.quantity + 1 : 1;
+      const { data } = await axios.get(`/api/products/${item._id}`);
+      if (data.countInStock < quantity) {
+        window.alert("Sorry. Product is out of stock");
+        return;
+      }
+      ctxDispatch({
+        type: "CART_ADD_ITEM",
+        payload: { ...item, quantity },
+      });
     }
-    ctxDispatch({
-      type: 'CART_ADD_ITEM',
-      payload: { ...item, quantity },
-    });
   };
 
   return (
@@ -44,7 +46,16 @@ function Product(props) {
             Out of stock
           </Button>
         ) : (
-          <Button onClick={() => addToCartHandler(product)}>Add to cart</Button>
+          <Button
+            className={
+              cartItems.find((x) => x._id === product._id) ? "add" : "rem"
+            }
+            onClick={() => addToCartHandler(product)}
+          >
+            {cartItems.find((x) => x._id === product._id)
+              ? "Remove From Cart"
+              : "Add to cart"}
+          </Button>
         )}
       </Card.Body>
     </Card>

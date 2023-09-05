@@ -35,6 +35,7 @@ import UserListScreen from "./screens/UserListScreen";
 import UserEditScreen from "./screens/UserEditScreen";
 import ForgetPasswordScreen from "./screens/ForgetPasswordScreen";
 import ResetPasswordScreen from "./screens/ResetPasswordScreen";
+import { CgShoppingCart } from "react-icons/cg";
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -94,14 +95,21 @@ function App() {
                 <Nav className='me-auto  w-100  justify-content-end'>
                   <Link to='/cart' className='nav-link'>
                     Cart
-                    {cart.cartItems.length > 0 && (
-                      <Badge pill bg='danger'>
-                        {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
-                      </Badge>
-                    )}
+                    <span className='cart-container'>
+                      <CgShoppingCart className='cart-icon' />
+                      {cart.cartItems.length > 0 && (
+                        <Badge className='count' pill bg='danger'>
+                          {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+                        </Badge>
+                      )}
+                    </span>
                   </Link>
                   {userInfo ? (
-                    <NavDropdown title={userInfo.name} id='basic-nav-dropdown'>
+                    <NavDropdown
+                      title={userInfo.name}
+                      className='x'
+                      id='basic-nav-dropdown'
+                    >
                       <LinkContainer to='/profile'>
                         <NavDropdown.Item>User Profile</NavDropdown.Item>
                       </LinkContainer>
@@ -118,7 +126,7 @@ function App() {
                       </Link>
                     </NavDropdown>
                   ) : (
-                    <Link className='nav-link' to='/signin'>
+                    <Link className='nav-link x' to='/signin'>
                       Sign In
                     </Link>
                   )}
