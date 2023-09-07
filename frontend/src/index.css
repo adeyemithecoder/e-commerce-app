@@ -164,4 +164,8 @@ button.thumbnail {
   .img-class {
     display: none;
   }
+  .homeImg {
+    width: 85%;
+    margin: 0 auto;
+  }
 }
